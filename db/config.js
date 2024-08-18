@@ -1,28 +1,30 @@
-import { defineDb, defineTable } from 'astro:db';
+import { defineDb, defineTable, column, db } from 'astro:db';
 
-// Defining the database structure
+const clients = defineTable({
+  columns: {
+    clientId: column.number({ primaryKey: true }),
+    name: column.text(),
+    observacao: column.text({ optional: true }),
+  },
+})
+const vendas = defineTable({
+  columns: {
+    vendasId: column.number({ primaryKey: true }),
+    produto: column.text(),
+    quantidade: column.number(),
+    preco: column.number(),
+    clienteId: column.number(),
+  },
+  foreignKeys: [
+    {
+      columns: ['clienteId'],
+      references: () => [clients.columns.clientId],
+    }
+  ]
+})
 export default defineDb({
   tables: {
-    // Customers table
-    clientes: defineTable({
-      columns: {
-        id: { type: 'number', primary: true }, // Primary key
-        nome: { type: 'string' },
-        email: { type: 'string' },
-        telefone: { type: 'string' },
-        createdAt: { type: 'date' }, // Creation date
-      },
-    }),
-    // Sales table
-    vendas: defineTable({
-      columns: {
-        id: { type: 'number', primary: true }, // Primary key
-        produto: { type: 'string' },
-        quantidade: { type: 'number' },
-        preco: { type: 'number' },
-        clienteId: { type: 'number' }, // Foreign key for the customer
-        createdAt: { type: 'date' }, // Creation date
-      },
-    }),
-  },
+    clients,
+    vendas
+  }
 });

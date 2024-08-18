@@ -6,8 +6,8 @@ let clientes = [];
 
 // Criar um novo cliente
 router.post('/', (req, res) => {
-  const { nome, email, telefone } = req.body;
-  const novoCliente = { id: clientes.length + 1, nome, email, telefone };
+  const { name, email, telefone } = req.body;
+  const novoCliente = { id: clientes.length + 1, name, email, telefone };
   clientes.push(novoCliente);
   res.status(201).json(novoCliente);
 });
@@ -15,11 +15,11 @@ router.post('/', (req, res) => {
 // Alterar um cliente existente
 router.put('/:id', (req, res) => {
   const { id } = req.params;
-  const { nome, email, telefone } = req.body;
+  const { name, email, telefone } = req.body;
   const cliente = clientes.find(c => c.id === parseInt(id));
 
   if (cliente) {
-    cliente.nome = nome || cliente.nome;
+    cliente.name = name || cliente.name;
     cliente.email = email || cliente.email;
     cliente.telefone = telefone || cliente.telefone;
     res.json(cliente);

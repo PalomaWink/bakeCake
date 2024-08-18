@@ -11,6 +11,18 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<section>
+      <nav>
+        <ul>
+          <li><a href="/">Painel</li>
+          <li><a href="/vendas">Vendas</li>
+          <li><a href="/clientes">Clientes</li>
+          <li><a href="/estoque">Estoque</li>
+        </ul>
+      </nav>
+      <section>
+        <slot />
+      </section>
+    </section>
 	</body>
 </html>
